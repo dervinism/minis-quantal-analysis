@@ -1,10 +1,10 @@
 %% User input/parameters
 params
 cd(fileparts(mfilename('fullpath')));
-dataFolder = fullfile(dataRepo, recFolder);
-dataFolderReal = fullfile(dataRepo, recFolder);
-fitFolder = 'C:\Users\44079\PhD\Paper4\Fits\best_fits';
-figFolder = 'C:\Users\44079\code_repositories\minis-benchmarking\fitFigures';
+dataFolder = fullfile(dataRepo1, recFolder);
+dataFolderReal = fullfile(dataRepo1, recFolder);
+fitFolder = dataRepo2;
+figFolder = '.\fitFigures';
 recIDs = {'p103a','p106b','p108a','p108b','p108c','p120b','p122a','p124b', ...
   'p125a','p127c','p128c','p129a','p131a','p131c'};
 capacitance = [335 430 535 343 379 302 263 228 258 167 358 246 197 205]; % pF
@@ -104,42 +104,42 @@ for iRec = 1:nRecs
   fittedIncidenceRates(iRec) = size(fitData.shapes,1)/durations(iRec);
 end 
 
-% % Draw capacitance vs fitted amplitude correlation
-% fTitle = 'Fitted amplitudes vs capacitance';
-% xLabel = 'Capacitance (pF)';
-% yLabel = 'Mean fitted amplitude (\muV)';
-% invCapacitanceVamp(capacitance, meanFittedAmplitudes.*1000, L5, ...
-%   fTitle, xLabel, yLabel, figFolder, false);
-% 
-% % Draw 1/capacitance vs fitted amplitude correlation
-% fTitle = 'Fitted amplitudes vs 1/capacitance';
-% xLabel = '1/capacitance (1/nF)';
-% yLabel = 'Mean fitted amplitude (\muV)';
-% invCapacitanceVamp(invCapacitance, meanFittedAmplitudes.*1000, L5, ...
-%   fTitle, xLabel, yLabel, figFolder, true);
-% %qqplot(invCapacitance);
-% %qqplot(meanFittedAmplitudes.*1000);
+% Draw capacitance vs fitted amplitude correlation
+fTitle = 'Fitted amplitudes vs capacitance';
+xLabel = 'Capacitance (pF)';
+yLabel = 'Mean fitted amplitude (\muV)';
+invCapacitanceVamp(capacitance, meanFittedAmplitudes.*1000, L5, ...
+  fTitle, xLabel, yLabel, figFolder, false);
+
+% Draw 1/capacitance vs fitted amplitude correlation
+fTitle = 'Fitted amplitudes vs 1/capacitance';
+xLabel = '1/capacitance (1/nF)';
+yLabel = 'Mean fitted amplitude (\muV)';
+invCapacitanceVamp(invCapacitance, meanFittedAmplitudes.*1000, L5, ...
+  fTitle, xLabel, yLabel, figFolder, true);
+%qqplot(invCapacitance);
+%qqplot(meanFittedAmplitudes.*1000);
 [L23mean, L23CI] = datamean(meanFittedAmplitudes(~L5)');    % Keep this at all times
 [L5mean, L5CI] = datamean(meanFittedAmplitudes(L5)');       % Keep this at all times
 [overallMean, overallCI] = datamean(meanFittedAmplitudes'); % Keep this at all times
-% disp(['L2/3 ' num2str(L23mean) ' -/+ ' num2str(L23CI(2))]);
-% disp(['L5 ' num2str(L5mean) ' -/+ ' num2str(L5CI(2))]);
-% disp(['Cx ' num2str(overallMean) ' -/+ ' num2str(overallCI(2))]);
-% 
-% % Draw 1/capacitance vs 10-90% rise time correlation
-% fTitle = 'Fitted 10-90% rise times vs 1/capacitance';
-% xLabel = '1/capacitance (1/nF)';
-% yLabel = 'Mean 10-90% rise time (ms)';
-% invCapacitanceVamp(invCapacitance, meanFittedRTs, L5, ...
-%   fTitle, xLabel, yLabel, figFolder, false);
-% %qqplot(meanFittedRTs);
-% 
-% % Draw 1/capacitance vs incidence rate correlation
-% fTitle = 'Fitted incidence rates vs 1/capacitance';
-% xLabel = '1/capacitance (1/nF)';
-% yLabel = 'Incidence rate (minis/s)';
-% invCapacitanceVamp(invCapacitance, fittedIncidenceRates, L5, ...
-%   fTitle, xLabel, yLabel, figFolder, false);
+disp(['L2/3 ' num2str(L23mean) ' -/+ ' num2str(L23CI(2))]);
+disp(['L5 ' num2str(L5mean) ' -/+ ' num2str(L5CI(2))]);
+disp(['Cx ' num2str(overallMean) ' -/+ ' num2str(overallCI(2))]);
+
+% Draw 1/capacitance vs 10-90% rise time correlation
+fTitle = 'Fitted 10-90% rise times vs 1/capacitance';
+xLabel = '1/capacitance (1/nF)';
+yLabel = 'Mean 10-90% rise time (ms)';
+invCapacitanceVamp(invCapacitance, meanFittedRTs, L5, ...
+  fTitle, xLabel, yLabel, figFolder, false);
+%qqplot(meanFittedRTs);
+
+% Draw 1/capacitance vs incidence rate correlation
+fTitle = 'Fitted incidence rates vs 1/capacitance';
+xLabel = '1/capacitance (1/nF)';
+yLabel = 'Incidence rate (minis/s)';
+invCapacitanceVamp(invCapacitance, fittedIncidenceRates, L5, ...
+  fTitle, xLabel, yLabel, figFolder, false);
 
 
 %% Get the means of real distributions + incidence rates
@@ -183,104 +183,104 @@ for iRec = 1:nRecs
   thrIncidenceRates(iRec) = sum(targetTable.Amplitude >= 0.08)/durations(iRec);
 end
 
-% % Draw 1/capacitance vs mixed real minis + noise amplitude correlation
-% fTitle = 'Thresholded amplitudes vs 1/capacitance';
-% xLabel = '1/capacitance (1/nF)';
-% yLabel = 'Mean thresholded amplitude (\muV)';
-% invCapacitanceVamp(invCapacitance, meanThrAmplitudes.*1000, L5, ...
-%   fTitle, xLabel, yLabel, figFolder, true);
-% 
-% % Draw 1/capacitance vs subtracted real amplitude correlation
-% fTitle = 'Subtracted amplitudes vs 1/capacitance';
-% xLabel = '1/capacitance (1/nF)';
-% yLabel = 'Mean subtracted amplitude (\muV)';
-% invCapacitanceVamp(invCapacitance, meanRealAmplitudes.*1000, L5, ...
-%   fTitle, xLabel, yLabel, figFolder, true);
-% %qqplot(meanRealAmplitudes.*1000);
-% 
-% % Draw fitted amplitude vs thresholded amplitude correlation
-% fTitle = 'Fitted vs thresholded amplitudes';
-% xLabel = 'Mean thresholded amplitude (\muV)';
-% yLabel = 'Mean fitted amplitude (\muV)';
-% invCapacitanceVamp(meanThrAmplitudes.*1000, meanFittedAmplitudes.*1000, L5, ...
-%   fTitle, xLabel, yLabel, figFolder, false);
-% 
-% % Draw fitted amplitude vs subtracted real amplitude correlation
-% fTitle = 'Fitted vs subtracted amplitudes';
-% xLabel = 'Mean subtracted amplitude (\muV)';
-% yLabel = 'Mean fitted amplitude (\muV)';
-% invCapacitanceVamp(meanRealAmplitudes.*1000, meanFittedAmplitudes.*1000, L5, ...
-%   fTitle, xLabel, yLabel, figFolder, false);
-% 
-% % Draw subtracted amplitude vs thresholded amplitude correlation
-% fTitle = 'Subtracted vs thresholded amplitudes';
-% xLabel = 'Mean thresholded amplitude (\muV)';
-% yLabel = 'Mean subtracted amplitude (\muV)';
-% invCapacitanceVamp(meanThrAmplitudes.*1000, meanRealAmplitudes.*1000, L5, ...
-%   fTitle, xLabel, yLabel, figFolder, false);
+% Draw 1/capacitance vs mixed real minis + noise amplitude correlation
+fTitle = 'Thresholded amplitudes vs 1/capacitance';
+xLabel = '1/capacitance (1/nF)';
+yLabel = 'Mean thresholded amplitude (\muV)';
+invCapacitanceVamp(invCapacitance, meanThrAmplitudes.*1000, L5, ...
+  fTitle, xLabel, yLabel, figFolder, true);
+
+% Draw 1/capacitance vs subtracted real amplitude correlation
+fTitle = 'Subtracted amplitudes vs 1/capacitance';
+xLabel = '1/capacitance (1/nF)';
+yLabel = 'Mean subtracted amplitude (\muV)';
+invCapacitanceVamp(invCapacitance, meanRealAmplitudes.*1000, L5, ...
+  fTitle, xLabel, yLabel, figFolder, true);
+%qqplot(meanRealAmplitudes.*1000);
+
+% Draw fitted amplitude vs thresholded amplitude correlation
+fTitle = 'Fitted vs thresholded amplitudes';
+xLabel = 'Mean thresholded amplitude (\muV)';
+yLabel = 'Mean fitted amplitude (\muV)';
+invCapacitanceVamp(meanThrAmplitudes.*1000, meanFittedAmplitudes.*1000, L5, ...
+  fTitle, xLabel, yLabel, figFolder, false);
+
+% Draw fitted amplitude vs subtracted real amplitude correlation
+fTitle = 'Fitted vs subtracted amplitudes';
+xLabel = 'Mean subtracted amplitude (\muV)';
+yLabel = 'Mean fitted amplitude (\muV)';
+invCapacitanceVamp(meanRealAmplitudes.*1000, meanFittedAmplitudes.*1000, L5, ...
+  fTitle, xLabel, yLabel, figFolder, false);
+
+% Draw subtracted amplitude vs thresholded amplitude correlation
+fTitle = 'Subtracted vs thresholded amplitudes';
+xLabel = 'Mean thresholded amplitude (\muV)';
+yLabel = 'Mean subtracted amplitude (\muV)';
+invCapacitanceVamp(meanThrAmplitudes.*1000, meanRealAmplitudes.*1000, L5, ...
+  fTitle, xLabel, yLabel, figFolder, false);
 
 
 %% Incidence rates
 [meanRates, meanRateCIs] = datamean([thrIncidenceRates; subtractedIncidenceRates; fittedIncidenceRates]');
 meanRateCIs = meanRates + meanRateCIs;
-% fH = figure; plot([1 1; 3 3], [min(externalIncidenceRates) max(externalIncidenceRates); ...
-%                                min(externalIncidenceRates) max(externalIncidenceRates)], ...
-%                                'r:', 'LineWidth',1.25);
-% hold on; plot([thrIncidenceRates; subtractedIncidenceRates; fittedIncidenceRates], ...
-%   'Color',[0.7 0.7 0.7]);
-% plot(meanRates, 'k.', 'MarkerSize',10);
-% plot([1 2 3; 1 2 3], meanRateCIs, 'k-', 'LineWidth',1.25);
-% xlim([0.9 3.1]);
-% %figure; qqplot(thrIncidenceRates);
-% %figure; qqplot(subtractedIncidenceRates);
-% %figure; qqplot(fittedIncidenceRates);
-% 
-% % Label the figure and axes
-% fontSize = 18;
-% fTitle = 'Minis'' incidence rates';
-% title(fTitle, 'FontSize',fontSize, 'FontWeight','bold');
-% ylabel('Incidence rate (minis/s)', 'FontSize',fontSize, 'FontWeight','bold')
-% 
-% % Tidy the figure
-% set(fH, 'Color', 'white');
-% ax = gca;
-% set(ax, 'box', 'off');
-% set(ax, 'TickDir', 'out');
-% set(ax, 'XTick', 1:3);
-% set(ax, 'XTickLabel', {'Thresholded','Subtracted','Fitted'});
-% yTicks = get(ax, 'YTick');
-% if numel(yTicks) > 8
-%   set(ax, 'YTick', yTicks(1:2:end));
-% end
-% ax.FontSize = fontSize - 4;
-% set(get(ax, 'XAxis'), 'FontWeight', 'bold');
-% set(get(ax, 'YAxis'), 'FontWeight', 'bold');
-% set(ax,'linewidth',2);
-% 
-% % Save the figure
-% if ~exist(figFolder, 'dir')
-%   mkdir(figFolder);
-% end
-% figName = strrep(fTitle, ' ', '_');
-% figName = strrep(figName, '(', '_');
-% figName = strrep(figName, ')', '_');
-% figName = strrep(figName, '/', '_');
-% figName = strrep(figName, '.', '_');
-% figName = fullfile(figFolder, figName);
-% savefig(fH, figName,'compact');
-% title('');
-% saveas(fH, figName, 'png');
-% saveas(fH, figName, 'pdf');
-% close(fH);
-% 
-% % stats
-% [~, pval, ~, stats] = ttest(thrIncidenceRates, subtractedIncidenceRates);
-% disp(['Thresholded vs subtracted incidence rates: p=' num2str(pval), ' t=' num2str(stats.tstat)]);
-% [~, pval, ~, stats] = ttest(subtractedIncidenceRates, fittedIncidenceRates);
-% disp(['Subtracted vs fitted incidence rates: p=' num2str(pval), ' t=' num2str(stats.tstat)]);
-% [~, pval, ~, stats] = ttest(thrIncidenceRates, fittedIncidenceRates);
-% disp(['Thresholded vs fitted incidence rates: p=' num2str(pval), ' t=' num2str(stats.tstat)]);
-% 
+fH = figure; plot([1 1; 3 3], [min(externalIncidenceRates) max(externalIncidenceRates); ...
+                               min(externalIncidenceRates) max(externalIncidenceRates)], ...
+                               'r:', 'LineWidth',1.25);
+hold on; plot([thrIncidenceRates; subtractedIncidenceRates; fittedIncidenceRates], ...
+  'Color',[0.7 0.7 0.7]);
+plot(meanRates, 'k.', 'MarkerSize',10);
+plot([1 2 3; 1 2 3], meanRateCIs, 'k-', 'LineWidth',1.25);
+xlim([0.9 3.1]);
+%figure; qqplot(thrIncidenceRates);
+%figure; qqplot(subtractedIncidenceRates);
+%figure; qqplot(fittedIncidenceRates);
+
+% Label the figure and axes
+fontSize = 18;
+fTitle = 'Minis'' incidence rates';
+title(fTitle, 'FontSize',fontSize, 'FontWeight','bold');
+ylabel('Incidence rate (minis/s)', 'FontSize',fontSize, 'FontWeight','bold')
+
+% Tidy the figure
+set(fH, 'Color', 'white');
+ax = gca;
+set(ax, 'box', 'off');
+set(ax, 'TickDir', 'out');
+set(ax, 'XTick', 1:3);
+set(ax, 'XTickLabel', {'Thresholded','Subtracted','Fitted'});
+yTicks = get(ax, 'YTick');
+if numel(yTicks) > 8
+  set(ax, 'YTick', yTicks(1:2:end));
+end
+ax.FontSize = fontSize - 4;
+set(get(ax, 'XAxis'), 'FontWeight', 'bold');
+set(get(ax, 'YAxis'), 'FontWeight', 'bold');
+set(ax,'linewidth',2);
+
+% Save the figure
+if ~exist(figFolder, 'dir')
+  mkdir(figFolder);
+end
+figName = strrep(fTitle, ' ', '_');
+figName = strrep(figName, '(', '_');
+figName = strrep(figName, ')', '_');
+figName = strrep(figName, '/', '_');
+figName = strrep(figName, '.', '_');
+figName = fullfile(figFolder, figName);
+savefig(fH, figName,'compact');
+title('');
+saveas(fH, figName, 'png');
+saveas(fH, figName, 'pdf');
+close(fH);
+
+% stats
+[~, pval, ~, stats] = ttest(thrIncidenceRates, subtractedIncidenceRates);
+disp(['Thresholded vs subtracted incidence rates: p=' num2str(pval), ' t=' num2str(stats.tstat)]);
+[~, pval, ~, stats] = ttest(subtractedIncidenceRates, fittedIncidenceRates);
+disp(['Subtracted vs fitted incidence rates: p=' num2str(pval), ' t=' num2str(stats.tstat)]);
+[~, pval, ~, stats] = ttest(thrIncidenceRates, fittedIncidenceRates);
+disp(['Thresholded vs fitted incidence rates: p=' num2str(pval), ' t=' num2str(stats.tstat)]);
+
 
 %% Draw individual 2D (amplitudes vs rise times) minis distributions
 for iRec = 1:nRecs
@@ -598,7 +598,7 @@ plot1Dhisto(rtDistro, rtBins, [0 10], fTitle, xLabel, yLabel, figFolder);
 
 
 % %% Display distribution fitting performance for individual recordings: No stats
-% for iRec = 14 %1:nRecs
+% for iRec = 1:nRecs
 %   load(fullfile(fitFolder, recIDs{iRec}, 'settings.mat'));
 % 
 %   if iRec == 10
@@ -798,151 +798,151 @@ plot1Dhisto(rtDistro, rtBins, [0 10], fTitle, xLabel, yLabel, figFolder);
 %   exportgraphics(fT,[figName, '.pdf'], 'ContentType','vector');
 %   close(fT);
 % end
-% 
-% 
-% %% Display amplitude and rise time distributions of 'noise + minis' and 'noise-alone' files for a recording of choice
-% % Bin detected real events into a histogram
-% % Target files
-% iRec = 4;
-% realFile = 4;
-% distroFile = fullfile(fitFolder, recIDs{iRec}, 'intermediateErrorBounds');
-% intermediateErrorBounds = load(distroFile);
-% realEventAmpDistro = intermediateErrorBounds.fileAmps;
-% realEventRTDistro = intermediateErrorBounds.fileRTs;
-% for iFile = 1:numel(nSweepsReal{iRec})
-%   realEventAmpDistro(iFile,:) = realEventAmpDistro(iFile,:) .* (nSweeps(iRec)./nSweepsReal{iRec}(iFile));
-%   realEventRTDistro(iFile,:) = realEventRTDistro(iFile,:) .* (nSweeps(iRec)./nSweepsReal{iRec}(iFile));
-% end
-% 
-% % Noise files
-% noiseFile = 2;
-% distroFile = fullfile(fitFolder, recIDs{iRec}, 'detectedNoiseEvents.mat');
-% detectedNoiseEvents = load(distroFile);
-% noiseEventAmpDistro = detectedNoiseEvents.fileAmps;
-% noiseEventRTDistro = detectedNoiseEvents.fileRTs;
-% for iFile = 1:numel(detectedNoiseEvents.fileSweeps)
-%   noiseEventAmpDistro(iFile,:) = noiseEventAmpDistro(iFile,:) .* (nSweeps(iRec)./detectedNoiseEvents.fileSweeps(iFile));
-%   noiseEventRTDistro(iFile,:) = noiseEventRTDistro(iFile,:) .* (nSweeps(iRec)./detectedNoiseEvents.fileSweeps(iFile));
-% end
-% 
-% % Draw distribution figures
-% fTitle = ['Amplitude distributions for recording ' recIDs{iRec}];
-% xLabel = 'Amplitude (\muV)';
-% yLabel = 'Count';
-% xLim = [0 250];
-% bins = intermediateErrorBounds.classificationParameters.amplitudeArrayExt(2:end)-ampBinSize/2;
-% binsInterp = bins(1):ampBinSize/10:bins(end);
-% realEventAmpDistroInterp = interp1(bins, realEventAmpDistro(realFile,:), binsInterp, 'linear');
-% noiseEventAmpDistroInterp = interp1(bins, noiseEventAmpDistro(noiseFile,:), binsInterp, 'linear');
-% smoothSpan = 5;
-% realEventAmpDistroInterp = smooth(realEventAmpDistroInterp, smoothSpan);
-% noiseEventAmpDistroInterp = smooth(noiseEventAmpDistroInterp, smoothSpan);
-% subtractedEvents = realEventAmpDistroInterp - noiseEventAmpDistroInterp;
-% distributions = [realEventAmpDistroInterp'; noiseEventAmpDistroInterp'; subtractedEvents'];
-% plot1Dhisto3(distributions, binsInterp*1000, xLim, fTitle, xLabel, yLabel, figFolder);
-% 
-% fTitle = ['Rise time distributions for recording ' recIDs{iRec}];
-% xLabel = '10-90% rise time (ms)';
-% yLabel = 'Count';
-% xLim = [0 10];
-% bins = intermediateErrorBounds.classificationParameters.riseTimeArrayExt(2:end)-rtBinSize/2;
-% binsInterp = bins(1):rtBinSize/10:bins(end);
-% realEventRTDistroInterp = interp1(bins, realEventRTDistro(realFile,:), binsInterp, 'linear');
-% noiseEventRTDistroInterp = interp1(bins, noiseEventRTDistro(noiseFile,:), binsInterp, 'linear');
-% smoothSpan = 5;
-% realEventRTDistroInterp = smooth(realEventRTDistroInterp, smoothSpan);
-% noiseEventRTDistroInterp = smooth(noiseEventRTDistroInterp, smoothSpan);
-% subtractedEvents = realEventRTDistroInterp - noiseEventRTDistroInterp;
-% distributions = [realEventRTDistroInterp'; noiseEventRTDistroInterp'; subtractedEvents'];
-% plot1Dhisto3(distributions, binsInterp, xLim, fTitle, xLabel, yLabel, figFolder);
-% 
-% 
-% %% Compare thresholded and non-thresholded fits for p127c recording
-% % Load data
-% iRec = 14;
-% if iRec == 10
-%   simFile1 = 'C:\Users\44079\Phd\Paper4\Fits\best_fits\p127c\fit_files\fit_006975_9309.mat';
-% elseif iRec == 13
-%   simFile1 = 'C:\Users\44079\Phd\Paper4\Fits\best_fits\p131a\fit_files\fit_004489_8912.mat';
-% elseif iRec == 14
-%   simFile1 = 'C:\Users\44079\Phd\Paper4\Fits\best_fits\p131c\fit_files\fit_004552_5461.mat';
-% end
-% fitData1 = load(simFile1);
-% 
-% recFolder = fullfile(fitFolder, recIDs{iRec});
-% simFile2 = dir(fullfile(recFolder, 'fit*.mat'));
-% simFile2 = fullfile(recFolder, simFile2.name);
-% fitData2 = load(simFile2);
-% 
-% % Marginal amplitude distribution
-% fH1 = figure;
-% fontSize = 18;
-% xLim = [0 400];
-% xLabel = 'Amplitude (\muV)';
-% yLabel = 'Count';
-% 
-% ampHisto1D = histcounts(fitData1.shapes(:,2).*1000, ampEdges.*1000);
-% bins = ampEdges(2:end)-ampBinSize/2;
-% ampBinsInterp = bins(1):ampBinSize/10:bins(end);
-% ampHisto1DInterp = interp1(bins.*1000, ampHisto1D, ampBinsInterp.*1000, 'linear');
-% smoothSpan = 5;
-% ampHisto1DInterp = smooth(ampHisto1DInterp, smoothSpan);
-% fitMean1 = mean(fitData1.shapes(:,2))*1000;
-% [~, meanLoc] = min(abs(ampBinsInterp .*1000- fitMean1));
-% plot(ampBinsInterp.*1000, ampHisto1DInterp, 'r', 'LineWidth',1.75); hold on
-% plot([ampBinsInterp(meanLoc) ampBinsInterp(meanLoc)].*1000, [0 ampHisto1DInterp(meanLoc)], ...
-%   'r:', 'LineWidth',1);
-% 
-% ampHisto1D_th = histcounts(fitData2.shapes(:,2).*1000, ampEdges.*1000);
-% ampHisto1DInterp_th = interp1(bins.*1000, ampHisto1D_th, ampBinsInterp.*1000, 'linear');
-% ampHisto1DInterp_th = smooth(ampHisto1DInterp_th, smoothSpan);
-% fitMean2 = mean(fitData2.shapes(:,2))*1000;
-% [~, meanLoc] = min(abs(ampBinsInterp .*1000- fitMean2));
-% plot(ampBinsInterp.*1000, ampHisto1DInterp_th, 'b', 'LineWidth',1.75);
-% plot([ampBinsInterp(meanLoc) ampBinsInterp(meanLoc)].*1000, [0 ampHisto1DInterp_th(meanLoc)], ...
-%   'b:', 'LineWidth',1); hold off
-% 
-% xlim(xLim)
-% ylim([0 max(ampHisto1DInterp)+10])
-% 
-% xlabel(xLabel, 'FontSize',fontSize, 'FontWeight','bold')
-% ylabel(yLabel, 'FontSize',fontSize, 'FontWeight','bold')
-% 
-% legend('Minis distribution w/o sim. threshold', 'Mean amplitude', ...
-%   'Minis distribution w/ sim. threshold', 'Mean amplitude');
-% legend('boxoff');
-% 
-% % Tidy the figure
-% set(fH1, 'Color', 'white');
-% ax = gca;
-% set(ax, 'box', 'off');
-% set(ax, 'TickDir', 'out');
-% yTicks = get(ax, 'YTick');
-% if numel(yTicks) > 8
-%   set(ax, 'YTick', yTicks(1:2:end));
-% end
-% ax.FontSize = fontSize - 4;
-% set(get(ax, 'XAxis'), 'FontWeight','bold');
-% set(get(ax, 'YAxis'), 'FontWeight','bold');
-% set(ax,'linewidth',1.5);
-% 
-% % Save the figure
-% figName = ['AmpThrEffect_' recIDs{iRec}];
-% if ~exist(figFolder, 'dir')
-%   mkdir(figFolder);
-% end
-% figName = strrep(figName, ' ', '_');
-% figName = strrep(figName, '(', '_');
-% figName = strrep(figName, ')', '_');
-% figName = strrep(figName, '/', '_');
-% figName = strrep(figName, '.', '_');
-% figName = fullfile(figFolder, figName);
-% savefig(fH1, figName,'compact');
-% exportgraphics(fH1,[figName, '.png'], 'Resolution',900);
-% exportgraphics(fH1,[figName, '.pdf'], 'ContentType','vector');
-% exportgraphics(fH1,[figName, '.eps'], 'Resolution',900);
-% %exportFig(fH5, [figFolder filesep figName '.eps'],'-depsc','-r1200', paperSize);
-% close(fH1);
+
+
+%% Display amplitude and rise time distributions of 'noise + minis' and 'noise-alone' files for a recording of choice
+% Bin detected real events into a histogram
+% Target files
+iRec = 4;
+realFile = 4;
+distroFile = fullfile(fitFolder, recIDs{iRec}, 'intermediateErrorBounds');
+intermediateErrorBounds = load(distroFile);
+realEventAmpDistro = intermediateErrorBounds.fileAmps;
+realEventRTDistro = intermediateErrorBounds.fileRTs;
+for iFile = 1:numel(nSweepsReal{iRec})
+  realEventAmpDistro(iFile,:) = realEventAmpDistro(iFile,:) .* (nSweeps(iRec)./nSweepsReal{iRec}(iFile));
+  realEventRTDistro(iFile,:) = realEventRTDistro(iFile,:) .* (nSweeps(iRec)./nSweepsReal{iRec}(iFile));
+end
+
+% Noise files
+noiseFile = 2;
+distroFile = fullfile(fitFolder, recIDs{iRec}, 'detectedNoiseEvents.mat');
+detectedNoiseEvents = load(distroFile);
+noiseEventAmpDistro = detectedNoiseEvents.fileAmps;
+noiseEventRTDistro = detectedNoiseEvents.fileRTs;
+for iFile = 1:numel(detectedNoiseEvents.fileSweeps)
+  noiseEventAmpDistro(iFile,:) = noiseEventAmpDistro(iFile,:) .* (nSweeps(iRec)./detectedNoiseEvents.fileSweeps(iFile));
+  noiseEventRTDistro(iFile,:) = noiseEventRTDistro(iFile,:) .* (nSweeps(iRec)./detectedNoiseEvents.fileSweeps(iFile));
+end
+
+% Draw distribution figures
+fTitle = ['Amplitude distributions for recording ' recIDs{iRec}];
+xLabel = 'Amplitude (\muV)';
+yLabel = 'Count';
+xLim = [0 250];
+bins = intermediateErrorBounds.classificationParameters.amplitudeArrayExt(2:end)-ampBinSize/2;
+binsInterp = bins(1):ampBinSize/10:bins(end);
+realEventAmpDistroInterp = interp1(bins, realEventAmpDistro(realFile,:), binsInterp, 'linear');
+noiseEventAmpDistroInterp = interp1(bins, noiseEventAmpDistro(noiseFile,:), binsInterp, 'linear');
+smoothSpan = 5;
+realEventAmpDistroInterp = smooth(realEventAmpDistroInterp, smoothSpan);
+noiseEventAmpDistroInterp = smooth(noiseEventAmpDistroInterp, smoothSpan);
+subtractedEvents = realEventAmpDistroInterp - noiseEventAmpDistroInterp;
+distributions = [realEventAmpDistroInterp'; noiseEventAmpDistroInterp'; subtractedEvents'];
+plot1Dhisto3(distributions, binsInterp*1000, xLim, fTitle, xLabel, yLabel, figFolder);
+
+fTitle = ['Rise time distributions for recording ' recIDs{iRec}];
+xLabel = '10-90% rise time (ms)';
+yLabel = 'Count';
+xLim = [0 10];
+bins = intermediateErrorBounds.classificationParameters.riseTimeArrayExt(2:end)-rtBinSize/2;
+binsInterp = bins(1):rtBinSize/10:bins(end);
+realEventRTDistroInterp = interp1(bins, realEventRTDistro(realFile,:), binsInterp, 'linear');
+noiseEventRTDistroInterp = interp1(bins, noiseEventRTDistro(noiseFile,:), binsInterp, 'linear');
+smoothSpan = 5;
+realEventRTDistroInterp = smooth(realEventRTDistroInterp, smoothSpan);
+noiseEventRTDistroInterp = smooth(noiseEventRTDistroInterp, smoothSpan);
+subtractedEvents = realEventRTDistroInterp - noiseEventRTDistroInterp;
+distributions = [realEventRTDistroInterp'; noiseEventRTDistroInterp'; subtractedEvents'];
+plot1Dhisto3(distributions, binsInterp, xLim, fTitle, xLabel, yLabel, figFolder);
+
+
+%% Compare thresholded and non-thresholded fits for p127c recording
+% Load data
+iRec = 14;
+if iRec == 10
+  simFile1 = 'C:\Users\44079\Phd\Paper4\Fits\best_fits\p127c\fit_files\fit_006975_9309.mat';
+elseif iRec == 13
+  simFile1 = 'C:\Users\44079\Phd\Paper4\Fits\best_fits\p131a\fit_files\fit_004489_8912.mat';
+elseif iRec == 14
+  simFile1 = 'C:\Users\44079\Phd\Paper4\Fits\best_fits\p131c\fit_files\fit_004552_5461.mat';
+end
+fitData1 = load(simFile1);
+
+recFolder = fullfile(fitFolder, recIDs{iRec});
+simFile2 = dir(fullfile(recFolder, 'fit*.mat'));
+simFile2 = fullfile(recFolder, simFile2.name);
+fitData2 = load(simFile2);
+
+% Marginal amplitude distribution
+fH1 = figure;
+fontSize = 18;
+xLim = [0 400];
+xLabel = 'Amplitude (\muV)';
+yLabel = 'Count';
+
+ampHisto1D = histcounts(fitData1.shapes(:,2).*1000, ampEdges.*1000);
+bins = ampEdges(2:end)-ampBinSize/2;
+ampBinsInterp = bins(1):ampBinSize/10:bins(end);
+ampHisto1DInterp = interp1(bins.*1000, ampHisto1D, ampBinsInterp.*1000, 'linear');
+smoothSpan = 5;
+ampHisto1DInterp = smooth(ampHisto1DInterp, smoothSpan);
+fitMean1 = mean(fitData1.shapes(:,2))*1000;
+[~, meanLoc] = min(abs(ampBinsInterp .*1000- fitMean1));
+plot(ampBinsInterp.*1000, ampHisto1DInterp, 'r', 'LineWidth',1.75); hold on
+plot([ampBinsInterp(meanLoc) ampBinsInterp(meanLoc)].*1000, [0 ampHisto1DInterp(meanLoc)], ...
+  'r:', 'LineWidth',1);
+
+ampHisto1D_th = histcounts(fitData2.shapes(:,2).*1000, ampEdges.*1000);
+ampHisto1DInterp_th = interp1(bins.*1000, ampHisto1D_th, ampBinsInterp.*1000, 'linear');
+ampHisto1DInterp_th = smooth(ampHisto1DInterp_th, smoothSpan);
+fitMean2 = mean(fitData2.shapes(:,2))*1000;
+[~, meanLoc] = min(abs(ampBinsInterp .*1000- fitMean2));
+plot(ampBinsInterp.*1000, ampHisto1DInterp_th, 'b', 'LineWidth',1.75);
+plot([ampBinsInterp(meanLoc) ampBinsInterp(meanLoc)].*1000, [0 ampHisto1DInterp_th(meanLoc)], ...
+  'b:', 'LineWidth',1); hold off
+
+xlim(xLim)
+ylim([0 max(ampHisto1DInterp)+10])
+
+xlabel(xLabel, 'FontSize',fontSize, 'FontWeight','bold')
+ylabel(yLabel, 'FontSize',fontSize, 'FontWeight','bold')
+
+legend('Minis distribution w/o sim. threshold', 'Mean amplitude', ...
+  'Minis distribution w/ sim. threshold', 'Mean amplitude');
+legend('boxoff');
+
+% Tidy the figure
+set(fH1, 'Color', 'white');
+ax = gca;
+set(ax, 'box', 'off');
+set(ax, 'TickDir', 'out');
+yTicks = get(ax, 'YTick');
+if numel(yTicks) > 8
+  set(ax, 'YTick', yTicks(1:2:end));
+end
+ax.FontSize = fontSize - 4;
+set(get(ax, 'XAxis'), 'FontWeight','bold');
+set(get(ax, 'YAxis'), 'FontWeight','bold');
+set(ax,'linewidth',1.5);
+
+% Save the figure
+figName = ['AmpThrEffect_' recIDs{iRec}];
+if ~exist(figFolder, 'dir')
+  mkdir(figFolder);
+end
+figName = strrep(figName, ' ', '_');
+figName = strrep(figName, '(', '_');
+figName = strrep(figName, ')', '_');
+figName = strrep(figName, '/', '_');
+figName = strrep(figName, '.', '_');
+figName = fullfile(figFolder, figName);
+savefig(fH1, figName,'compact');
+exportgraphics(fH1,[figName, '.png'], 'Resolution',900);
+exportgraphics(fH1,[figName, '.pdf'], 'ContentType','vector');
+exportgraphics(fH1,[figName, '.eps'], 'Resolution',900);
+%exportFig(fH5, [figFolder filesep figName '.eps'],'-depsc','-r1200', paperSize);
+close(fH1);
 
 
 
@@ -998,7 +998,7 @@ if showOrigin
   %txtStr = ['Q=' num2str(round(slope, 1,'decimal')) 'fC'];
   txtStr = ['y=' num2str(round(slope, 1,'decimal')) 'x (via origin)'];
   %txtList(3) = text(xLim(1)+0.75*xAxisLength, yLim(1)+0.05*yAxisLength, txtStr);
-  txtList(3) = text(xLim(1)+0.6*xAxisLength, yLim(1)+0.9*yAxisLength, txtStr);
+  txtList(3) = text(xLim(1)+0.6*xAxisLength, yLim(1)+0.9*yAxisLength, txtStr); %#ok<*NASGU>
   xlim(xLim);
   ylim(yLim);
 end
@@ -1162,7 +1162,7 @@ end
 
 
 function fH = ciPlot1Dhisto(distribution, xBins, lowLim, upLim, xBinsCI, xLim, ...
-  fTitle, xLabel, yLabel, figFolder)
+  fTitle, xLabel, yLabel, figFolder) %#ok<*DEFNU>
 
 % Parameters
 fontSize = 18;

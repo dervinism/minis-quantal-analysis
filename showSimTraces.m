@@ -1,23 +1,23 @@
 % Demonstrate how 'noise + simulated minis' traces are generated
 
-% % User input
-% figFolder = 'Fig02';
-% fitFolder = 'C:\Users\44079\Phd\Paper4\Fits\best_fits';
-% recID = 'p131a';
-% 
-% % Load simulated data
-% recFolder = fullfile(fitFolder, recID);
-% simFile = dir(fullfile(recFolder, 'fit*.mat'));
-% simFile = fullfile(recFolder, simFile.name);
-% fitData = load(simFile);
-% 
-% % Load noise data
-% settingsFile = fullfile(recFolder, 'settings.mat');
-% load(settingsFile);
-% % [data,si,hd] = abf2load(settings.loadNoiseFileInput);
-% [data,si,hd] = abf2load(settings.loadNoiseFileInput);
+% User input
 params
-load(fullfile('.', dataRepo, recFolder, 'p131a', 'Fig02', 'loadedData.mat'));
+figFolder = 'Fig01';
+fitFolder = dataRepo2;
+recID = 'p131a';
+
+% Load simulated data
+recFolder = fullfile(fitFolder, recID);
+simFile = dir(fullfile(recFolder, 'fit*.mat'));
+simFile = fullfile(recFolder, simFile.name);
+fitData = load(simFile);
+
+% Load noise data
+settingsFile = fullfile(recFolder, 'settings.mat');
+load(settingsFile);
+% [data,si,hd] = abf2load(settings.loadNoiseFileInput);
+[data,si,hd] = abf2load(settings.loadNoiseFileInput);
+%load(fullfile(dataRepo, recFolder, 'p131a', 'Fig01', 'loadedData.mat'));
 
 % Display data
 fT = figure; tiledlayout(7,1, 'Padding','none', 'TileSpacing','tight')

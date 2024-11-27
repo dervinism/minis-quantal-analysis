@@ -1,10 +1,10 @@
 %% User input/parameters
 params
 cd(fileparts(mfilename('fullpath')));
-dataFolder = fullfile(dataRepo, recFolder);
-dataFolderReal = fullfile(dataRepo, recFolder);
-fitFolder = 'C:\Users\44079\PhD\Paper4\Fits\best_fits';
-figFolder = 'C:\Users\44079\code_repositories\minis-benchmarking\fitFigures';
+dataFolder = fullfile(dataRepo1, recFolder);
+dataFolderReal = fullfile(dataRepo1, recFolder);
+fitFolder = dataRepo2;
+figFolder = '.\fitFigures';
 recIDs = {'p103a','p106b','p108a','p108b','p108c','p120b','p122a','p124b', ...
   'p125a','p127c','p128c','p129a','p131a','p131c'};
 capacitance = [335 430 535 343 379 302 263 228 258 167 358 246 197 205]; % pF
@@ -163,6 +163,12 @@ if normalise && mergeBins
   ampBins3Mask = false(size(ampBins));
   ampBins3Mask(ampBins3Inds) = true;
   ampBinsMerged = [ampBins1 ampBins2 ampBins3];
+end
+
+
+%% Check for data folder
+if ~exist(dataRepo1, 'dir')
+  error('Data folder is not found. Please provide a valid data folder.');
 end
 
 
@@ -711,34 +717,34 @@ for iRec = 1:nRecs
     end
   else
     if underfitAmp
-      txtStrUnder = ['Underfit Amp: W(' num2str(numel(files)) ')=' ...
+      txtStrUnder = ['Underfit Amp: W(' num2str(numel(files)-2) ')=' ...
         num2str(round(fUnderfitTestAmp,1,'decimal')) ...
         ', p=' num2str(round(pvalUnderfitTestAmp,2,'significant')) ' \uparrow'];
       tuAmp = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.95, txtStrUnder);
     elseif overfitAmp
-      txtStrOver = ['Overfit Amp: W(' num2str(numel(files)) ')=' ...
+      txtStrOver = ['Overfit Amp: W(' num2str(numel(files)-2) ')=' ...
         num2str(round(fOverfitTestAmp,1,'decimal')) ...
         ', p=' num2str(round(pvalOverfitTestAmp,2,'significant')) ' \downarrow'];
       toAmp = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.95, txtStrOver);
     else
       if ampDistancesGrandSumSim/numel(ampDistancesSumSim) > median(worstAmpDistroDistances)
-        txtStrUnder = ['Fit Amp: W(' num2str(numel(files)) ')_{underfit}=' ...
+        txtStrUnder = ['Fit Amp: W(' num2str(numel(files)-2) ')_{underfit}=' ...
           num2str(round(fUnderfitTestAmp,1,'decimal')) ...
           ', p=' num2str(round(pvalUnderfitTestAmp,2,'significant')) ' \uparrow'];
         tuAmp = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.95, txtStrUnder);
       else
-        txtStrUnder = ['Fit Amp: W(' num2str(numel(files)) ')_{underfit}=' ...
+        txtStrUnder = ['Fit Amp: W(' num2str(numel(files)-2) ')_{underfit}=' ...
           num2str(round(fUnderfitTestAmp,1,'decimal')) ...
           ', p=' num2str(round(pvalUnderfitTestAmp,2,'significant')) ' \downarrow'];
         tuAmp = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.95, txtStrUnder);
       end
       if ampDistancesGrandSumSim/numel(ampDistancesSumSim) < median(bestAmpDistroDistances)
-        txtStrOver = ['               W(' num2str(numel(files)) ')_{overfit}=' ...
+        txtStrOver = ['               W(' num2str(numel(files)-2) ')_{overfit}=' ...
           num2str(round(fOverfitTestAmp,1,'decimal')) ...
           ', p=' num2str(round(pvalOverfitTestAmp,2,'significant')) ' \downarrow'];
         toAmp = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.85, txtStrOver);
       else
-        txtStrOver = ['               W(' num2str(numel(files)) ')_{overfit}=' ...
+        txtStrOver = ['               W(' num2str(numel(files)-2) ')_{overfit}=' ...
           num2str(round(fOverfitTestAmp,1,'decimal')) ...
           ', p=' num2str(round(pvalOverfitTestAmp,2,'significant')) ' \uparrow'];
         toAmp = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.85, txtStrOver);
@@ -837,34 +843,34 @@ for iRec = 1:nRecs
     end
   else
     if underfitRT
-      txtStrUnder = ['Underfit RT: W(' num2str(numel(files)) ')=' ...
+      txtStrUnder = ['Underfit RT: W(' num2str(numel(files)-2) ')=' ...
         num2str(round(fUnderfitTestRT,1,'decimal')) ...
         ', p=' num2str(round(pvalUnderfitTestRT,2,'significant')) ' \uparrow'];
       tuRT = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.95, txtStrUnder);
     elseif overfitRT
-      txtStrOver = ['Overfit RT: W(' num2str(numel(files)) ')=' ...
+      txtStrOver = ['Overfit RT: W(' num2str(numel(files)-2) ')=' ...
         num2str(round(fOverfitTestRT,1,'decimal')) ...
         ', p=' num2str(round(pvalOverfitTestRT,2,'significant')) ' \downarrow'];
       toRT = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.95, txtStrOver);
     else
       if rtDistancesGrandSumSim/numel(rtDistancesSumSim) > median(worstRTDistroDistances)
-        txtStrUnder = ['Fit RT: W(' num2str(numel(files)) ')_{underfit}=' ...
+        txtStrUnder = ['Fit RT: W(' num2str(numel(files)-2) ')_{underfit}=' ...
           num2str(round(fUnderfitTestRT,1,'decimal')) ...
           ', p=' num2str(round(pvalUnderfitTestRT,2,'significant')) ' \uparrow'];
         tuRT = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.95, txtStrUnder);
       else
-        txtStrUnder = ['Fit RT: W(' num2str(numel(files)) ')_{underfit}=' ...
+        txtStrUnder = ['Fit RT: W(' num2str(numel(files)-2) ')_{underfit}=' ...
           num2str(round(fUnderfitTestRT,1,'decimal')) ...
           ', p=' num2str(round(pvalUnderfitTestRT,2,'significant')) ' \downarrow'];
         tuRT = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.95, txtStrUnder);
       end
       if rtDistancesGrandSumSim/numel(rtDistancesSumSim) < median(bestRTDistroDistances)
-        txtStrOver = ['            W(' num2str(numel(files)) ')_{overfit}=' ...
+        txtStrOver = ['            W(' num2str(numel(files)-2) ')_{overfit}=' ...
           num2str(round(fOverfitTestRT,1,'decimal')) ...
           ', p=' num2str(round(pvalOverfitTestRT,2,'significant')) ' \downarrow'];
         toRT = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.85, txtStrOver);
       else
-        txtStrOver = ['            W(' num2str(numel(files)) ')_{overfit}=' ...
+        txtStrOver = ['            W(' num2str(numel(files)-2) ')_{overfit}=' ...
           num2str(round(fOverfitTestRT,1,'decimal')) ...
           ', p=' num2str(round(pvalOverfitTestRT,2,'significant')) ' \uparrow'];
         toRT = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.85, txtStrOver);
@@ -933,8 +939,10 @@ for iRec = 1:nRecs
     end
   end
   ampSADMatrix = round(ampSADMatrix(ampSortOrder, ampSortOrder));
+  ampSADMatrix = [ampSADMatrix median(ampSADMatrix,2, 'omitnan')];
   ampSADMatrix(isnan(ampSADMatrix)) = 0;
   rtSADMatrix = round(rtSADMatrix(rtSortOrder, rtSortOrder));
+  rtSADMatrix = [rtSADMatrix median(rtSADMatrix,2, 'omitnan')];
   rtSADMatrix(isnan(rtSADMatrix)) = 0;
 
   % Display real-real SAD tables
@@ -955,8 +963,8 @@ for iRec = 1:nRecs
   end
 
   % Colour real-real SAD table cells
-  maxAmpSAD = max([max(max(ampSADMatrix)) max(round(ampDistancesSumSim))]);
-  maxRTSAD = max([max(max(rtSADMatrix)) max(round(rtDistancesSumSim))]);
+  maxAmpSAD = max([max(max(ampSADMatrix)) max(ampDistancesSumSim)]);
+  maxRTSAD = max([max(max(rtSADMatrix)) max(rtDistancesSumSim)]);
   colourMap = parula(256);
   for iCell = 1:numel(ampSADMatrix)
     if isnan(ampSADMatrix(iCell))
@@ -979,7 +987,11 @@ for iRec = 1:nRecs
   end
 
   % Save real-real SAD table figures
-  figName = ['SAD_amplitude_sets_' recIDs{iRec}];
+  if normalise
+    figName = ['SAD_amplitude_sets_normalised_' recIDs{iRec}];
+  else
+    figName = ['SAD_amplitude_sets_' recIDs{iRec}];
+  end
   if ~exist(figFolder, 'dir')
     mkdir(figFolder);
   end
@@ -987,7 +999,11 @@ for iRec = 1:nRecs
   savefig(figAmp, figName,'compact');
   close(figAmp);
 
-  figName = ['SAD_riseTime_sets_' recIDs{iRec}];
+  if normalise
+    figName = ['SAD_riseTime_sets_normalised_' recIDs{iRec}];
+  else
+    figName = ['SAD_riseTime_sets_' recIDs{iRec}];
+  end
   if ~exist(figFolder, 'dir')
     mkdir(figFolder);
   end
@@ -996,62 +1012,136 @@ for iRec = 1:nRecs
   close(figRT);
 
   % Create simulated-real SAD vectors
-  ampSADMatrix = [round(ampDistancesSumSim) round(median(ampDistancesSumSim),1,'decimals')];
-  rtSADMatrix = [round(rtDistancesSumSim) round(median(rtDistancesSumSim),1,'decimals')];
+  ampSADMatrixTop = [round(ampDistancesSumSim(2:end)) round(median(ampDistancesSumSim(2:end)),1,'decimals')];
+  ampSADMatrixBottom = [round(ampDistancesSumSim(1:end-1)) round(median(ampDistancesSumSim(1:end-1)),1,'decimals')];
+  rtSADMatrixTop = [round(rtDistancesSumSim(2:end)) round(median(rtDistancesSumSim(2:end)),1,'decimals')];
+  rtSADMatrixBottom = [round(rtDistancesSumSim(1:end-1)) round(median(rtDistancesSumSim(1:end-1)),1,'decimals')];
+  % ampSADMatrixTop = [round(ampDistancesSumSim) round(median(ampDistancesSumSim),1,'decimals')];
+  % ampSADMatrixBottom = [round(ampDistancesSumSim) round(median(ampDistancesSumSim),1,'decimals')];
+  % rtSADMatrixTop = [round(rtDistancesSumSim) round(median(rtDistancesSumSim),1,'decimals')];
+  % rtSADMatrixBottom = [round(rtDistancesSumSim) round(median(rtDistancesSumSim),1,'decimals')];
+  maxAmpSAD = max([maxAmpSAD ampSADMatrixTop ampSADMatrixBottom]);
+  maxRTSAD = max([maxRTSAD rtSADMatrixTop rtSADMatrixBottom]);
 
   % Display simulated-real SAD tables
   cellFormat = 'longG';
   cellWidth = 'fit';
-  figAmp = uifigure;
-  uitAmp = uitable(figAmp, 'Units','normalized', 'ColumnWidth',cellWidth, 'Data',ampSADMatrix);
-  uitAmp.ColumnFormat = {};
-  for iCol = 1:size(ampSADMatrix,2)
-    uitAmp.ColumnFormat{numel(uitAmp.ColumnFormat)+1} = cellFormat;
+  figAmpTop = uifigure;
+  uitAmpTop = uitable(figAmpTop, 'Units','normalized', 'ColumnWidth',cellWidth, 'Data',ampSADMatrixTop);
+  uitAmpTop.ColumnFormat = {};
+  for iCol = 1:size(ampSADMatrixTop,2)
+    uitAmpTop.ColumnFormat{numel(uitAmpTop.ColumnFormat)+1} = cellFormat;
   end
 
-  figRT = uifigure;
-  uitRT = uitable(figRT, 'Units','normalized', 'ColumnWidth',cellWidth, 'Data',rtSADMatrix);
-  uitRT.ColumnFormat = {};
-  for iCol = 1:size(rtSADMatrix,2)
-    uitRT.ColumnFormat{numel(uitRT.ColumnFormat)+1} = cellFormat;
+  figAmpBottom = uifigure;
+  uitAmpBottom = uitable(figAmpBottom, 'Units','normalized', 'ColumnWidth',cellWidth, 'Data',ampSADMatrixBottom);
+  uitAmpBottom.ColumnFormat = {};
+  for iCol = 1:size(ampSADMatrixBottom,2)
+    uitAmpBottom.ColumnFormat{numel(uitAmpBottom.ColumnFormat)+1} = cellFormat;
+  end
+
+  figRTTop = uifigure;
+  uitRTTop = uitable(figRTTop, 'Units','normalized', 'ColumnWidth',cellWidth, 'Data',rtSADMatrixTop);
+  uitRTTop.ColumnFormat = {};
+  for iCol = 1:size(rtSADMatrixTop,2)
+    uitRTTop.ColumnFormat{numel(uitRTTop.ColumnFormat)+1} = cellFormat;
+  end
+
+  figRTBottom = uifigure;
+  uitRTBottom = uitable(figRTBottom, 'Units','normalized', 'ColumnWidth',cellWidth, 'Data',rtSADMatrixBottom);
+  uitRTBottom.ColumnFormat = {};
+  for iCol = 1:size(rtSADMatrixBottom,2)
+    uitRTBottom.ColumnFormat{numel(uitRTBottom.ColumnFormat)+1} = cellFormat;
   end
 
   % Colour simulated-real SAD table cells
-  for iCell = 1:numel(ampSADMatrix)
-    if isnan(ampSADMatrix(iCell))
-      [row, col] = ind2sub(size(ampSADMatrix), iCell);
-      addStyle(uitAmp, uistyle('FontColor', [1 1 1]), 'cell', [row col]);
-      addStyle(uitAmp, uistyle('BackgroundColor', [1 1 1]), 'cell', [row col]);
-      addStyle(uitAmp, uistyle('HorizontalAlignment', 'center'), 'cell', [row col]);
-      addStyle(uitRT, uistyle('FontColor', [1 1 1]), 'cell', [row col]);
-      addStyle(uitRT, uistyle('BackgroundColor', [1 1 1]), 'cell', [row col]);
-      addStyle(uitRT, uistyle('HorizontalAlignment', 'center'), 'cell', [row col]);
+  for iCell = 1:numel(ampSADMatrixTop)
+    if isnan(ampSADMatrixTop(iCell))
+      [row, col] = ind2sub(size(ampSADMatrixTop), iCell);
+      addStyle(uitAmpTop, uistyle('FontColor', [1 1 1]), 'cell', [row col]);
+      addStyle(uitAmpTop, uistyle('BackgroundColor', [1 1 1]), 'cell', [row col]);
+      addStyle(uitAmpTop, uistyle('HorizontalAlignment', 'center'), 'cell', [row col]);
+      addStyle(uitRTTop, uistyle('FontColor', [1 1 1]), 'cell', [row col]);
+      addStyle(uitRTTop, uistyle('BackgroundColor', [1 1 1]), 'cell', [row col]);
+      addStyle(uitRTTop, uistyle('HorizontalAlignment', 'center'), 'cell', [row col]);
     else
-      [row, col] = ind2sub(size(ampSADMatrix), iCell);
-      addStyle(uitAmp, uistyle('BackgroundColor', ...
-        colourMap(max([1 ceil((256*ampSADMatrix(iCell))/maxAmpSAD)]),:)), 'cell', [row col]);
-      addStyle(uitAmp, uistyle('HorizontalAlignment', 'center'), 'cell', [row col]);
-      addStyle(uitRT, uistyle('BackgroundColor', ...
-        colourMap(max([1 ceil((256*rtSADMatrix(iCell))/maxRTSAD)]),:)), 'cell', [row col]);
-      addStyle(uitRT, uistyle('HorizontalAlignment', 'center'), 'cell', [row col]);
+      [row, col] = ind2sub(size(ampSADMatrixTop), iCell);
+      addStyle(uitAmpTop, uistyle('BackgroundColor', ...
+        colourMap(max([1 ceil((256*ampSADMatrixTop(iCell))/maxAmpSAD)]),:)), 'cell', [row col]);
+      addStyle(uitAmpTop, uistyle('HorizontalAlignment', 'center'), 'cell', [row col]);
+      addStyle(uitRTTop, uistyle('BackgroundColor', ...
+        colourMap(max([1 ceil((256*rtSADMatrixTop(iCell))/maxRTSAD)]),:)), 'cell', [row col]);
+      addStyle(uitRTTop, uistyle('HorizontalAlignment', 'center'), 'cell', [row col]);
+    end
+  end
+
+  for iCell = 1:numel(ampSADMatrixBottom)
+    if isnan(ampSADMatrixBottom(iCell))
+      [row, col] = ind2sub(size(ampSADMatrixBottom), iCell);
+      addStyle(uitAmpBottom, uistyle('FontColor', [1 1 1]), 'cell', [row col]);
+      addStyle(uitAmpBottom, uistyle('BackgroundColor', [1 1 1]), 'cell', [row col]);
+      addStyle(uitAmpBottom, uistyle('HorizontalAlignment', 'center'), 'cell', [row col]);
+      addStyle(uitRTBottom, uistyle('FontColor', [1 1 1]), 'cell', [row col]);
+      addStyle(uitRTBottom, uistyle('BackgroundColor', [1 1 1]), 'cell', [row col]);
+      addStyle(uitRTBottom, uistyle('HorizontalAlignment', 'center'), 'cell', [row col]);
+    else
+      [row, col] = ind2sub(size(ampSADMatrixBottom), iCell);
+      addStyle(uitAmpBottom, uistyle('BackgroundColor', ...
+        colourMap(max([1 ceil((256*ampSADMatrixBottom(iCell))/maxAmpSAD)]),:)), 'cell', [row col]);
+      addStyle(uitAmpBottom, uistyle('HorizontalAlignment', 'center'), 'cell', [row col]);
+      addStyle(uitRTBottom, uistyle('BackgroundColor', ...
+        colourMap(max([1 ceil((256*rtSADMatrixBottom(iCell))/maxRTSAD)]),:)), 'cell', [row col]);
+      addStyle(uitRTBottom, uistyle('HorizontalAlignment', 'center'), 'cell', [row col]);
     end
   end
 
   % Save simulated-real SAD table figures
-  figName = ['SAD_amplitude_simSet_' recIDs{iRec}];
+  if normalise
+    figName = ['SAD_amplitude_simSetTop_normalised_' recIDs{iRec}];
+  else
+    figName = ['SAD_amplitude_simSetTop_' recIDs{iRec}];
+  end
   if ~exist(figFolder, 'dir')
     mkdir(figFolder);
   end
   figName = fullfile(figFolder, figName);
-  savefig(figAmp, figName,'compact');
-  close(figAmp);
+  savefig(figAmpTop, figName,'compact');
+  close(figAmpTop);
 
-  figName = ['SAD_riseTime_simSet_' recIDs{iRec}];
+  if normalise
+    figName = ['SAD_amplitude_simSetBottom_normalised_' recIDs{iRec}];
+  else
+    figName = ['SAD_amplitude_simSetBottom_' recIDs{iRec}];
+  end
   if ~exist(figFolder, 'dir')
     mkdir(figFolder);
   end
   figName = fullfile(figFolder, figName);
-  savefig(figRT, figName,'compact');
-  close(figRT);
+  savefig(figAmpBottom, figName,'compact');
+  close(figAmpBottom);
+
+  if normalise
+    figName = ['SAD_riseTime_simSetTop_normalised_' recIDs{iRec}];
+  else
+    figName = ['SAD_riseTime_simSetTop_' recIDs{iRec}];
+  end
+  if ~exist(figFolder, 'dir')
+    mkdir(figFolder);
+  end
+  figName = fullfile(figFolder, figName);
+  savefig(figRTTop, figName,'compact');
+  close(figRTTop);
+
+  if normalise
+    figName = ['SAD_riseTime_simSetBottom_normalised_' recIDs{iRec}];
+  else
+    figName = ['SAD_riseTime_simSetBottom_' recIDs{iRec}];
+  end
+  if ~exist(figFolder, 'dir')
+    mkdir(figFolder);
+  end
+  figName = fullfile(figFolder, figName);
+  savefig(figRTBottom, figName,'compact');
+  close(figRTBottom);
 end
 %disp(skewness);

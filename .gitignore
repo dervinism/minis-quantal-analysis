@@ -1,4 +1,7 @@
 *.asv
 *.mat
 fitFigures/
+fitFigures_old/
 minis-benchmarking-data/
+minis-quantal-analysis-data/
+Fig01/
