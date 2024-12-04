@@ -860,12 +860,12 @@ plot1Dhisto3(distributions, binsInterp, xLim, fTitle, xLabel, yLabel, figFolder)
 %% Compare thresholded and non-thresholded fits for p127c recording
 % Load data
 iRec = 14;
-if iRec == 10
-  simFile1 = 'C:\Users\44079\Phd\Paper4\Fits\best_fits\p127c\fit_files\fit_006975_9309.mat';
-elseif iRec == 13
-  simFile1 = 'C:\Users\44079\Phd\Paper4\Fits\best_fits\p131a\fit_files\fit_004489_8912.mat';
-elseif iRec == 14
-  simFile1 = 'C:\Users\44079\Phd\Paper4\Fits\best_fits\p131c\fit_files\fit_004552_5461.mat';
+if iRec == 10 || iRec == 13 || iRec == 14
+  simFile1 = fullfile(fitFolder, recIDs{iRec}, 'alt_fit*.mat');
+  simFile1 = dir(simFile1);
+  simFile1 = fullfile(simFile1.folder, simFile1.name);
+else
+  error('Only iRec values of 10, 13, and 14 are supported.');
 end
 fitData1 = load(simFile1);
 
