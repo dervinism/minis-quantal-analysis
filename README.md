@@ -2,7 +2,7 @@
 This repository contains quantal analysis Matlab code for [minis](https://github.com/dervinism/minis) software. It contains all the analysis code required to reproduce main Figures 1, 2, 7-12, and all supplementary figures of the minis quantal analysis [manuscript](https://doi.org/10.1101/2024.07.05.602190).
 
 ## Installation Instructions
-Download the code repository and add it to the Matlab path, including its subfolders. If you are using Windows, place the code repository in your system's root folder, because ABF files have long names. Subsequently, download the minis benchmarking data [repository](https://gin.g-node.org/dervinism/minis-benchmarking-data) and the minis quantal analysis data [repository](https://gin.g-node.org/dervinism/minis-quantal-analysis-data) and place them both inside the minis-quantal-analysis [repository](https://github.com/dervinism/minis-quantal-analysis).
+Download the code repository and add it to the Matlab path, including its subfolders. If you are using Windows, place the code repository in your system's root folder, because ABF files have long names. Subsequently, download the minis benchmarking data [repository](https://gin.g-node.org/dervinism/minis-benchmarking-data2) and the minis quantal analysis data [repository](https://gin.g-node.org/dervinism/minis-quantal-analysis-data) and place them both inside the minis-quantal-analysis [repository](https://github.com/dervinism/minis-quantal-analysis).
 
 Additionally, you must download external code dependencies which include:
 - [Circular Statistics Toolbox](https://github.com/circstat/circstat-matlab).
