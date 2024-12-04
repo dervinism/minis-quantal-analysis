@@ -192,7 +192,7 @@ for iRec = 1:nRecs
   filtering.filtfs = {'50, 150'};
   filtering.nSweeps = nSweeps(iRec);
   if ~isfield(fitData,'V')
-    noiseProperties = loadABF('C:\Users\44079\PhD\previous\Guy_Major\Data\p122a\data\optimisation\noise\p122a_0027sw23469.abf');
+    noiseProperties = loadABF(fullfile(dataRepo2, recIDs{iRec}, 'p122a_0027sw23469.abf'));
     fitData.V = fitData.simV + noiseProperties.sweep;
     fitData.detectionParametersSim.SWstart = 11;
     fitData.detectionParametersSim.BLduration = 2;
