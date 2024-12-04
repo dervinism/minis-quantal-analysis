@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/687046158.svg)](https://zenodo.org/badge/latestdoi/687046158)
+
 # minis-quantal-analysis
 This repository contains quantal analysis Matlab code for [minis](https://github.com/dervinism/minis) software. It contains all the analysis code required to reproduce main Figures 1, 2, 7-12, and all supplementary figures of the minis quantal analysis [manuscript](https://doi.org/10.1101/2024.07.05.602190).
 
