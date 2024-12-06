@@ -464,6 +464,12 @@ for iRec = 1:nRecs
   else
     text(-0.22*xAxisSize, yLim(2)-0.025*yAxisSize, 'C', 'FontSize',26, 'FontWeight','bold');
   end
+  text(0.65*xAxisSize, yLim(2)-0.025*yAxisSize, ...
+    ['\mu = ' num2str(round(mean(fitData.shapes(:,2).*1000), 1, 'decimals')) ' \muV'], 'FontSize',12);
+  text(0.65*xAxisSize, yLim(2)-0.075*yAxisSize, ...
+    ['\eta = ' num2str(round(median(fitData.shapes(:,2).*1000), 1, 'decimals')) ' \muV'], 'FontSize',12);
+  text(0.65*xAxisSize, yLim(2)-0.125*yAxisSize, ...
+    ['f = ' num2str(round(fittedIncidenceRates(iRec), 1, 'decimals')) ' minis/s'], 'FontSize',12);
 
   % Marginal rise time distribution
   ax4 = nexttile(4);
@@ -502,6 +508,10 @@ for iRec = 1:nRecs
   else
     text(-0.22*xAxisSize, yLim(2)-0.025*yAxisSize, 'D', 'FontSize',26, 'FontWeight','bold');
   end
+  text(0.7*xAxisSize, yLim(2)-0.025*yAxisSize, ...
+    ['\mu = ' num2str(round(mean(fitData.shapes(:,3)), 2, 'decimals')) ' ms'], 'FontSize',12);
+  text(0.7*xAxisSize, yLim(2)-0.075*yAxisSize, ...
+    ['\eta = ' num2str(round(median(fitData.shapes(:,3)), 2, 'decimals')) ' ms'], 'FontSize',12);
 
   % Save the figure
   figName = ['SourceDistros4pFigures_' recIDs{iRec}];

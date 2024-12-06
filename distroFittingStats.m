@@ -700,34 +700,34 @@ for iRec = 1:nRecs
     if underfitAmp
       txtStrUnder = ['Underfit Amp: F(' num2str(round(dfUnderfitTestAmp,1,'decimal')) ')=' ...
         num2str(round(fUnderfitTestAmp,2,'significant')) ...
-        ', p=' num2str(round(pvalUnderfitTestAmp,2,'significant')) ' \uparrow'];
+        ', p=' num2str(round(min([1 pvalUnderfitTestAmp*nComparisons]),2,'significant')) ' \uparrow'];
       tuAmp = text(xLim(1)+xAxisSize*0.35, yAxisSize*0.95, txtStrUnder);
     elseif overfitAmp
       txtStrOver = ['Overfit Amp: F(' num2str(round(dfOverfitTestAmp,1,'decimal')) ')=' ...
         num2str(round(fOverfitTestAmp,2,'significant')) ...
-        ', p=' num2str(round(pvalOverfitTestAmp,2,'significant')) ' \downarrow'];
+        ', p=' num2str(round(min([1 pvalOverfitTestAmp*nComparisons]),2,'significant')) ' \downarrow'];
       toAmp = text(xLim(1)+xAxisSize*0.35, yAxisSize*0.95, txtStrOver);
     else
       if ampDistancesGrandSumSim/numel(ampDistancesSumSim) > mean(worstAmpDistroDistances)
         txtStrUnder = ['Fit Amp: F_{underfit}(' num2str(round(dfUnderfitTestAmp,1,'decimal')) ')=' ...
           num2str(round(fUnderfitTestAmp,2,'significant')) ...
-          ', p=' num2str(round(pvalUnderfitTestAmp,2,'significant')) ' \uparrow'];
+          ', p=' num2str(round(min([1 pvalUnderfitTestAmp*nComparisons]),2,'significant')) ' \uparrow'];
         tuAmp = text(xLim(1)+xAxisSize*0.35, yAxisSize*0.95, txtStrUnder);
       else
         txtStrUnder = ['Fit Amp: F_{underfit}(' num2str(round(dfUnderfitTestAmp,1,'decimal')) ')=' ...
           num2str(round(fUnderfitTestAmp,2,'significant')) ...
-          ', p=' num2str(round(pvalUnderfitTestAmp,2,'significant')) ' \downarrow'];
+          ', p=' num2str(round(min([1 pvalUnderfitTestAmp*nComparisons]),2,'significant')) ' \downarrow'];
         tuAmp = text(xLim(1)+xAxisSize*0.35, yAxisSize*0.95, txtStrUnder);
       end
       if ampDistancesGrandSumSim/numel(ampDistancesSumSim) < mean(bestAmpDistroDistances)
         txtStrOver = ['               F_{overfit}(' num2str(round(dfOverfitTestAmp,1,'decimal')) ')=' ...
           num2str(round(fOverfitTestAmp,2,'significant')) ...
-          ', p=' num2str(round(pvalOverfitTestAmp,2,'significant')) ' \downarrow'];
+          ', p=' num2str(round(min([1 pvalOverfitTestAmp*nComparisons]),2,'significant')) ' \downarrow'];
         toAmp = text(xLim(1)+xAxisSize*0.35, yAxisSize*0.85, txtStrOver);
       else
         txtStrOver = ['               F_{overfit}(' num2str(round(dfOverfitTestAmp,1,'decimal')) ')=' ...
           num2str(round(fOverfitTestAmp,2,'significant')) ...
-          ', p=' num2str(round(pvalOverfitTestAmp,2,'significant')) ' \uparrow'];
+          ', p=' num2str(round(min([1 pvalOverfitTestAmp*nComparisons]),2,'significant')) ' \uparrow'];
         toAmp = text(xLim(1)+xAxisSize*0.35, yAxisSize*0.85, txtStrOver);
       end
     end
@@ -735,34 +735,34 @@ for iRec = 1:nRecs
     if underfitAmp
       txtStrUnder = ['Underfit Amp: W(' num2str(numel(files)-3) ')=' ...
         num2str(round(fUnderfitTestAmp,1,'decimal')) ...
-        ', p=' num2str(round(pvalUnderfitTestAmp,2,'significant')) ' \uparrow'];
+        ', p=' num2str(round(min([1 pvalUnderfitTestAmp*nComparisons]),2,'significant')) ' \uparrow'];
       tuAmp = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.95, txtStrUnder);
     elseif overfitAmp
       txtStrOver = ['Overfit Amp: W(' num2str(numel(files)-3) ')=' ...
         num2str(round(fOverfitTestAmp,1,'decimal')) ...
-        ', p=' num2str(round(pvalOverfitTestAmp,2,'significant')) ' \downarrow'];
+        ', p=' num2str(round(min([1 pvalOverfitTestAmp*nComparisons]),2,'significant')) ' \downarrow'];
       toAmp = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.95, txtStrOver);
     else
       if ampDistancesGrandSumSim/numel(ampDistancesSumSim) > median(worstAmpDistroDistances)
         txtStrUnder = ['Fit Amp: W(' num2str(numel(files)-3) ')_{underfit}=' ...
           num2str(round(fUnderfitTestAmp,1,'decimal')) ...
-          ', p=' num2str(round(pvalUnderfitTestAmp,2,'significant')) ' \uparrow'];
+          ', p=' num2str(round(min([1 pvalUnderfitTestAmp*nComparisons]),2,'significant')) ' \uparrow'];
         tuAmp = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.95, txtStrUnder);
       else
         txtStrUnder = ['Fit Amp: W(' num2str(numel(files)-3) ')_{underfit}=' ...
           num2str(round(fUnderfitTestAmp,1,'decimal')) ...
-          ', p=' num2str(round(pvalUnderfitTestAmp,2,'significant')) ' \downarrow'];
+          ', p=' num2str(round(min([1 pvalUnderfitTestAmp*nComparisons]),2,'significant')) ' \downarrow'];
         tuAmp = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.95, txtStrUnder);
       end
       if ampDistancesGrandSumSim/numel(ampDistancesSumSim) < median(bestAmpDistroDistances)
         txtStrOver = ['               W(' num2str(numel(files)-3) ')_{overfit}=' ...
           num2str(round(fOverfitTestAmp,1,'decimal')) ...
-          ', p=' num2str(round(pvalOverfitTestAmp,2,'significant')) ' \downarrow'];
+          ', p=' num2str(round(min([1 pvalOverfitTestAmp*nComparisons]),2,'significant')) ' \downarrow'];
         toAmp = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.85, txtStrOver);
       else
         txtStrOver = ['               W(' num2str(numel(files)-3) ')_{overfit}=' ...
           num2str(round(fOverfitTestAmp,1,'decimal')) ...
-          ', p=' num2str(round(pvalOverfitTestAmp,2,'significant')) ' \uparrow'];
+          ', p=' num2str(round(min([1 pvalOverfitTestAmp*nComparisons]),2,'significant')) ' \uparrow'];
         toAmp = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.85, txtStrOver);
       end
     end
@@ -826,34 +826,34 @@ for iRec = 1:nRecs
     if underfitRT
       txtStrUnder = ['Underfit RT: F(' num2str(round(dfUnderfitTestRT,1,'decimal')) ')=' ...
         num2str(round(fUnderfitTestRT,2,'significant')) ...
-        ', p=' num2str(round(pvalUnderfitTestRT,2,'significant')) ' \uparrow'];
+        ', p=' num2str(round(min([1 pvalUnderfitTestRT*nComparisons]),2,'significant')) ' \uparrow'];
       tuRT = text(xLim(1)+xAxisSize*0.35, yAxisSize*0.95, txtStrUnder);
     elseif overfitRT
       txtStrOver = ['Overfit RT: F(' num2str(round(dfOverfitTestRT,1,'decimal')) ')=' ...
         num2str(round(fOverfitTestRT,2,'significant')) ...
-        ', p=' num2str(round(pvalOverfitTestRT,2,'significant')) ' \downarrow'];
+        ', p=' num2str(round(min([1 pvalOverfitTestRT*nComparisons]),2,'significant')) ' \downarrow'];
       toRT = text(xLim(1)+xAxisSize*0.35, yAxisSize*0.95, txtStrOver);
     else
       if rtDistancesGrandSumSim/numel(rtDistancesSumSim) > mean(worstRTDistroDistances)
         txtStrUnder = ['Fit RT: F_{underfit}(' num2str(round(dfUnderfitTestRT,1,'decimal')) ')=' ...
           num2str(round(fUnderfitTestRT,2,'significant')) ...
-          ', p=' num2str(round(pvalUnderfitTestRT,2,'significant')) ' \uparrow'];
+          ', p=' num2str(round(min([1 pvalUnderfitTestRT*nComparisons]),2,'significant')) ' \uparrow'];
         tuRT = text(xLim(1)+xAxisSize*0.35, yAxisSize*0.95, txtStrUnder);
       else
         txtStrUnder = ['Fit RT: F_{underfit}(' num2str(round(dfUnderfitTestRT,1,'decimal')) ')=' ...
           num2str(round(fUnderfitTestRT,2,'significant')) ...
-          ', p=' num2str(round(pvalUnderfitTestRT,2,'significant')) ' \downarrow'];
+          ', p=' num2str(round(min([1 pvalUnderfitTestRT*nComparisons]),2,'significant')) ' \downarrow'];
         tuRT = text(xLim(1)+xAxisSize*0.35, yAxisSize*0.95, txtStrUnder);
       end
       if rtDistancesGrandSumSim/numel(rtDistancesSumSim) < mean(bestRTDistroDistances)
         txtStrOver = ['            F_{overfit}(' num2str(round(dfOverfitTestRT,1,'decimal')) ')=' ...
           num2str(round(fOverfitTestRT,2,'significant')) ...
-          ', p=' num2str(round(pvalOverfitTestRT,2,'significant')) ' \downarrow'];
+          ', p=' num2str(round(min([1 pvalOverfitTestRT*nComparisons]),2,'significant')) ' \downarrow'];
         toRT = text(xLim(1)+xAxisSize*0.35, yAxisSize*0.85, txtStrOver);
       else
         txtStrOver = ['            F_{overfit}(' num2str(round(dfOverfitTestRT,1,'decimal')) ')=' ...
           num2str(round(fOverfitTestRT,2,'significant')) ...
-          ', p=' num2str(round(pvalOverfitTestRT,2,'significant')) ' \uparrow'];
+          ', p=' num2str(round(min([1 pvalOverfitTestRT*nComparisons]),2,'significant')) ' \uparrow'];
         toRT = text(xLim(1)+xAxisSize*0.35, yAxisSize*0.85, txtStrOver);
       end
     end
@@ -861,34 +861,34 @@ for iRec = 1:nRecs
     if underfitRT
       txtStrUnder = ['Underfit RT: W(' num2str(numel(files)-3) ')=' ...
         num2str(round(fUnderfitTestRT,1,'decimal')) ...
-        ', p=' num2str(round(pvalUnderfitTestRT,2,'significant')) ' \uparrow'];
+        ', p=' num2str(round(min([1 pvalUnderfitTestRT*nComparisons]),2,'significant')) ' \uparrow'];
       tuRT = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.95, txtStrUnder);
     elseif overfitRT
       txtStrOver = ['Overfit RT: W(' num2str(numel(files)-3) ')=' ...
         num2str(round(fOverfitTestRT,1,'decimal')) ...
-        ', p=' num2str(round(pvalOverfitTestRT,2,'significant')) ' \downarrow'];
+        ', p=' num2str(round(min([1 pvalOverfitTestRT*nComparisons]),2,'significant')) ' \downarrow'];
       toRT = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.95, txtStrOver);
     else
       if rtDistancesGrandSumSim/numel(rtDistancesSumSim) > median(worstRTDistroDistances)
         txtStrUnder = ['Fit RT: W(' num2str(numel(files)-3) ')_{underfit}=' ...
           num2str(round(fUnderfitTestRT,1,'decimal')) ...
-          ', p=' num2str(round(pvalUnderfitTestRT,2,'significant')) ' \uparrow'];
+          ', p=' num2str(round(min([1 pvalUnderfitTestRT*nComparisons]),2,'significant')) ' \uparrow'];
         tuRT = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.95, txtStrUnder);
       else
         txtStrUnder = ['Fit RT: W(' num2str(numel(files)-3) ')_{underfit}=' ...
           num2str(round(fUnderfitTestRT,1,'decimal')) ...
-          ', p=' num2str(round(pvalUnderfitTestRT,2,'significant')) ' \downarrow'];
+          ', p=' num2str(round(min([1 pvalUnderfitTestRT*nComparisons]),2,'significant')) ' \downarrow'];
         tuRT = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.95, txtStrUnder);
       end
       if rtDistancesGrandSumSim/numel(rtDistancesSumSim) < median(bestRTDistroDistances)
         txtStrOver = ['            W(' num2str(numel(files)-3) ')_{overfit}=' ...
           num2str(round(fOverfitTestRT,1,'decimal')) ...
-          ', p=' num2str(round(pvalOverfitTestRT,2,'significant')) ' \downarrow'];
+          ', p=' num2str(round(min([1 pvalOverfitTestRT*nComparisons]),2,'significant')) ' \downarrow'];
         toRT = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.85, txtStrOver);
       else
         txtStrOver = ['            W(' num2str(numel(files)-3) ')_{overfit}=' ...
           num2str(round(fOverfitTestRT,1,'decimal')) ...
-          ', p=' num2str(round(pvalOverfitTestRT,2,'significant')) ' \uparrow'];
+          ', p=' num2str(round(min([1 pvalOverfitTestRT*nComparisons]),2,'significant')) ' \uparrow'];
         toRT = text(xLim(1)+xAxisSize*0.4, yAxisSize*0.85, txtStrOver);
       end
     end
